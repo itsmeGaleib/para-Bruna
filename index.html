@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Afeto</title>
+    <style>
+        body {
+            background-color: #ffccf2; /* Fundo rosa suave */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            perspective: 1000px;
+            width: 90%;
+            max-width: 600px;
+            height: 90vh;
+            position: relative;
+        }
+
+        .title {
+            font-size: 2em;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.6);
+        }
+
+        .envelope {
+            width: 100%;
+            height: 100%;
+            background-color: #f2e2ff;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .envelope.open .front {
+            transform: rotateY(180deg);
+        }
+
+        .envelope.open .back {
+            transform: rotateY(0deg);
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.6s;
+            overflow: auto;
+        }
+
+        .front {
+            background-color: #ff99cc;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            transform: rotateY(0deg);
+            z-index: 1;
+        }
+
+        .back {
+            background-color: white;
+            color: #ff69b4;
+            transform: rotateY(-180deg);
+            text-align: left;
+            padding: 20px;
+            box-sizing: border-box;
+            font-size: 1em;
+            line-height: 1.5;
+            position: relative;
+            z-index: 0;
+            max-height: 100%; /* Permite rolagem do texto */
+            overflow-y: auto;
+        }
+
+        /* Decorações ao redor da carta */
+        .decorations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .decorations::before,
+        .decorations::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .decorations::before {
+            top: 10%;
+            left: 10%;
+            width: 25%;
+            height: 25%;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.6) 0%, rgba(255, 105, 180, 0.6) 100%);
+        }
+
+        .decorations::after {
+            bottom: 10%;
+            right: 10%;
+            width: 20%;
+            height: 20%;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.5) 0%, rgba(255, 105, 180, 0.5) 100%);
+        }
+
+        .decoration-small {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 182, 193, 0.3);
+            opacity: 0.6;
+        }
+
+        .decoration-small:nth-child(1) {
+            top: 15%;
+            left: 70%;
+            width: 10%;
+            height: 10%;
+        }
+
+        .decoration-small:nth-child(2) {
+            bottom: 20%;
+            right: 30%;
+            width: 8%;
+            height: 8%;
+        }
+
+        .decoration-small:nth-child(3) {
+            top: 50%;
+            right: 20%;
+            width: 12%;
+            height: 12%;
+        }
+
+        .decoration-small:nth-child(4) {
+            bottom: 30%;
+            left: 40%;
+            width: 14%;
+            height: 14%;
+        }
+
+        /* Ajustes de responsividade */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.5em;
+            }
+
+            .envelope {
+                height: 80vh;
+            }
+
+            .front, .back {
+                padding: 15px;
+            }
+
+            .front {
+                font-size: 1.2em;
+            }
+
+            .back {
+                font-size: 0.9em;
+                max-height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="decorations">
+        <div class="decoration-small"></div>
+        <div class="decoration-small"></div>
+        <div class="decoration-small"></div>
+        <div class="decoration-small"></div>
+    </div>
+
+    <div class="container">
+        <div class="title">Uma Carta Especial</div>
+        <div class="envelope" id="envelope" onclick="toggleLetter()">
+            <div class="front">Clique para abrir a carta</div>
+            <div class="back">
+                <p>
+Prezada Bruna,
+
+Já conhecia você há muito tempo, mas somente este ano tive a oportunidade de te conhecer de verdade, Me considero sortudo por ter tido o prazer de conhecer essa incrível e maravilhosa pessoa que você é, saiba que eu sou grato por isso.... Antes, eu te via apenas como "amiga do Raul"; hoje, te vejo como minha amiga, e eu simplesmente amo isso. Gosto de tantas coisas na nossa amizade, como a forma que você sempre se preocupa e "cuida" de mim, kkk, me proibindo de coçar o braço ou sempre me protegendo das ofensas de terceiros. Simplesmente adoro esse seu jeitinho protetor. Acho tão lindo como você se importa comigo, a ponto de me corrigir, a fim de que eu melhore.
+
+Sinceramente, não esperava que fôssemos amigos, mas hoje, naquela sala, não consigo imaginar uma realidade onde não sejamos amigos. Muito obrigado por tudo que você tem feito ou ainda fará por mim. Sei que, às vezes, você se incomoda com algumas atitudes minhas, talvez até me achando chato, mas saiba que te considero muito e sempre vou te considerar. Saiba que para sempre você terá um espaço no meu coração.
+
+Espero ter você na minha vida por muito tempo, e também espero de verdade que você consiga realizar todos os seus sonhos e vontades.
+
+Com carinho,
+Biel
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLetter() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.toggle('open');
+        }
+    </script>
+
+</body>
+</html>
